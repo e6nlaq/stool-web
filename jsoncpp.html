@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>STool - JSON C++</title>
+	<script src="./src/header.js"></script>
+	<script src="./src/jsoncpp.js"></script>
+	<link rel="shortcut icon" href="./media/stool.svg" type="image/x-icon">
+	<link rel="stylesheet" href="main.css">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+</head>
+
+<body onload="load_header();">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.31.0/ace.min.js"></script>
+	<div class="header" id="header">
+
+	</div>
+
+	<div class="main">
+		<h2>JSON C++</h2>
+		<p>JSONをC++の形式に変更します</p>
+		<p>キーはダブルクォーテーションで囲んだ文字列である必要があります。</p>
+
+		<input type="file" name="" id="input_file" accept=".json">
+		<button onclick="const file_load=()=>{
+			// console.log('A');
+			let editor=ace.edit('editor');
+			load_file((value)=>{
+				editor.setValue(value);
+				// console.log('A');
+			});
+		};file_load();">Load</button>
+		<br>
+		<br>
+		<div id="editor" style="height: 300px;width: 600px;"></div>
+
+		<br>
+		<button onclick="const format_button=()=>{
+			let editor=ace.edit('editor');
+			editor.setValue(format(editor.getValue()));
+		};format_button();">Format</button>
+
+		<button onclick="const editor_clear=()=>{
+			let editor=ace.edit('editor');
+			editor.setValue('');
+		};editor_clear();">Clear</button>
+
+		<button onclick="const copy=()=>{
+			let editor=ace.edit('editor');
+			navigator.clipboard.writeText(editor.getValue());
+		};copy();">Copy</button>
+
+
+		<script>
+			let editor = ace.edit("editor");
+			editor.setTheme("ace/theme/one_dark");
+			editor.session.setMode("ace/mode/json");
+			editor.setShowPrintMargin(false);
+		</script>
+	</div>
+</body>
+
+</html>
